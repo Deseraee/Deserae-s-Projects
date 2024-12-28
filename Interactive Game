@@ -1,0 +1,219 @@
+/* VARIABLES */
+let enterButton;
+let a1Button;
+let a2Button;
+let b1Button;
+let b2Button;
+let rButton;
+let screen = 0;
+let bgColor = "blue";
+let screenImg, homeImg, buttonImg, screen1Img;
+let endScreenImg, screen2Img, babyImg, nightImg;
+let berriesImg, blueberryImg;
+
+/*PRELOAD LOADS FILES */
+function preload() {
+  screenImg = loadImage("Images/loading.jpg");
+  homeImg = loadImage("Images/home.jpg");
+  buttonImg = loadImage("Images/leaf.png");
+  screen1Img = loadImage("Images/screenuno.jpg");
+  screen2Img = loadImage("Images/scaryscreen.jpg");
+  endScreenImg = loadImage("Images/monkey.jpg");
+  babyImg = loadImage("Images/baby.jpg")
+  nightImg = loadImage("Images/night.jpg");
+  berriesImg = loadImage("Images/berrie.png");
+  blueberryImg = loadImage("Images/blueberry.png")
+}
+/* SETUP RUNS ONCE */
+function setup() {
+  createCanvas(600, 400);
+  //Change the size of the image
+  buttonImg.resize(80, 0);
+  berriesImg.resize(60, 0);
+  blueberryImg.resize(60, 0)
+  textAlign(CENTER);
+  textSize(20);
+  noStroke();
+
+  // Set up the loading screen
+  background(screenImg);
+  fill('DarkSalmon');
+  textFont('Georgia');
+  text(
+    "Welcome to Monkey Business! \n Press next to read more \nabout this game",
+    width / 2,
+    height / 2 - 100
+  );
+
+  // Create buttons for all screens
+  enterButton = new Sprite(buttonImg, width / 2, height / 2 + 100);
+  zButton = new Sprite(buttonImg, width / 2, - 100);
+  a1Button = new Sprite(buttonImg, -200, -200);
+  a2Button = new Sprite(buttonImg, -50, -50);
+  b1Button = new Sprite(buttonImg, -100, -100);
+  b2Button = new Sprite(buttonImg, -150, -100);
+}
+/* DRAW LOOP REPEATS */
+function draw() {
+  // Display enter button
+  enterButton.w = 100;
+  enterButton.h = 50;
+  enterButton.collider = "k";
+  enterButton.color = "plum";
+  enterButton.text = "Next";
+
+
+
+  // Check enter button
+  if (enterButton.mouse.presses()) {
+    print("pressed");
+    showHscreen();
+    screen = 10;
+  }
+  if (screen == 10) {
+    if (zButton.mouse.presses()) {
+      print("Display homescreen");
+      showHscreen();
+      screen = 1;
+    }
+  }
+  if (screen == 1) {
+    if (zButton.mouse.presses()) {
+      print("Display screen 1");
+      showScreen1();
+      screen = 2
+    }
+  }
+
+  if (screen == 2) {
+    if (a1Button.mouse.presses()) {
+      print("Display screen 2");
+      showScreen2();
+      screen = 3;
+      //If the player doesn't click A1 
+    } else if (a2Button.mouse.presses()) {
+      print("Diplay screen 5");
+      showScreen5();
+    }
+  } else if (screen == 3) {
+    if (b1Button.mouse.presses()) {
+      showScreen3();
+      screen = 4;
+    } else if (b2Button.mouse.presses()) {
+      showScreen4();
+      screen = 4;
+    }
+    print(screen);
+  }
+}
+//print(screen);
+
+/* FUNCTIONS TO DISPLAY SCREENS */
+function showHscreen() {
+  background(homeImg);
+  fill('white')
+  textFont('Georgia');
+  text('You are a scientist \n who is looking for an endangered monkey.You are currently\n on a journey throughout the forest to find the animal. \nBut you must be careful, you never know what is out there. \nGood luck!', width / 2 - 10, height / 2 - 110);
+  enterButton.pos = { x: -100, y: -100 };
+  zButton.pos = { x: width / 2 - 10, y: height / 2 + 90 };
+  zButton.w = 50;
+  zButton.h = 50;
+  zButton.collider = "k";
+  zButton.color = "plum";
+  zButton.text = "enter"
+  fill('Lavender');
+  textFont('Georgia');
+  text('Press enter to start the game', width / 2 - 50, height / 2 + 175);
+}
+function showScreen1() {
+  background(screen1Img);
+  fill('Linen')
+  text('You just entered the forest \n and you came across two different paths. \nWhich one will you take?',
+    width / 2,
+    height / 2 - 100);
+  enterButton.pos = { x: -50, y: -100 };
+
+  // Add A1 button
+  a1Button.pos = { x: width / 2 - 50, y: height / 2 + 100 };
+  a1Button.w = 75;
+  a1Button.h = 50;
+  a1Button.collider = "k";
+  a1Button.color = "OliveDrab";
+  a1Button.text = "Left"
+
+  // Add A2 button
+  a2Button.pos = { x: width / 2 + 50, y: height / 2 + 100 };
+  a2Button.w = 70;
+  a2Button.h = 50;
+  a2Button.collider = "k";
+  a2Button.color = "Olive"
+  a2Button.text = "Right"
+  zButton.pos = { x: -300, y: -500 };
+}
+//Function for screen 2
+function showScreen2() {
+  background(screen2Img);
+  fill("LightBlue")
+  textFont('Georgia');
+  textSize(20)
+  text('Oh no.You took the \nspooky path. With old trees, bears and \nfog. What will you do now?',
+    width / 2,
+    height / 2 - 100);
+  a1Button.pos = { x: -100, y: -100 };
+  a2Button.pos = { x: -100, y: -100 };
+  // Add B1 button
+  b1Button.pos = { x: width / 2 - 50, y: height / 2 + 100 };
+  b1Button.w = 80;
+  b1Button.h = 50;
+  b1Button.collider = "k";
+  b1Button.color = "CadetBlue";
+  b1Button.text = "Keep on \nwalking"
+  b2Button.pos = { x: width / 2 + 50, y: height / 2 + 100 };
+  // Add B2 button
+  b2Button.pos = { x: width / 2 + 50, y: height / 2 + 100 };
+  b2Button.w = 70;
+  b2Button.h = 50;
+  b2Button.collider = "k";
+  b2Button.color = "CadetBlue";
+  b2Button.text = "Go \nback"
+}
+//Function for screen 3
+function showScreen3() {
+  background(babyImg);
+  fill("Gainsboro");
+  textSize(15);
+  text('You did not find the monkey you where \nlooking for..\n You found something better,\n a unknown baby monkey.', width / 2 + 70,
+    height / 2 + 110);
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+  zbutton.pos = { x: -50, y: -50 };
+
+
+}
+//Function for screen 4
+function showScreen4() {
+  background(nightImg);
+  fill('Silver');
+  textSize(20)
+  text('By the time you got back to the original path,\n it turned to night and you were tired. \nYou decided to set up your tent and fall asleep.\n You will try again tomorrow',
+    width / 2,
+    height / 2 - 150);
+
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+  zbutton.pos = { x: -50, y: -50 };
+}
+//Function for screen 5
+function showScreen5() {
+  background(endScreenImg);
+  fill('Pink');
+  textSize(15)
+  text('You found the endangered animal \n and you decided to admire \nher from afar!!',
+    width / 2 + 40,
+    height / 2 + 20);
+  //Move extra buttons off screen
+  a1Button.pos = { x: -200, y: -200 };
+  a2Button.pos = { x: -50, y: -50 };
+  zButton.pos = { x: - 50, y: -50 };
+
+}
